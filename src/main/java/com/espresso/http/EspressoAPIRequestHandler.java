@@ -58,9 +58,12 @@ public class EspressoAPIRequestHandler {
 			throws IOException, JSONException, EspressoAPIException {
 		Request request = createPostRequest( url, params);
 		Response response = client.newCall(request).execute();
-		String body = response.body().string();
-		return new EspressoAPIResponseHandler().handle(response, body);
-
+		try {
+	        String body = response.body().string();
+	        return new EspressoAPIResponseHandler().handle(response, body);
+	    } finally {
+	        response.close(); 
+	    }
 	}
 	
 //	To generate accessToken
@@ -81,8 +84,12 @@ public class EspressoAPIRequestHandler {
 			throws IOException, EspressoAPIException, JSONException {
 		Request request = createPostRequest(vendorKey,apiKey, url, params, accessToken);
 		Response response = client.newCall(request).execute();
-		String body = response.body().string();
-		return new EspressoAPIResponseHandler().handle(response, body);
+		try {
+	        String body = response.body().string();
+	        return new EspressoAPIResponseHandler().handle(response, body);
+	    } finally {
+	        response.close(); 
+	    }
 	}
 	
 	public Request createPostRequest(String vendorKey, String apiKey,String url, JSONObject params, String accessToken) {
@@ -112,8 +119,12 @@ public class EspressoAPIRequestHandler {
 			throws IOException, EspressoAPIException, JSONException {
 		Request request = createGetRequest(vendorKey,apiKey, url);
 		Response response = client.newCall(request).execute();
-		String body = response.body().string();
-		return new EspressoAPIResponseHandler().handle(response, body);
+		try {
+	        String body = response.body().string();
+	        return new EspressoAPIResponseHandler().handle(response, body);
+	    } finally {
+	        response.close(); 
+	    }
 	}
 	
 	public Request createGetRequest(String vendorKey, String apiKey, String url) throws IOException {
@@ -133,8 +144,12 @@ public class EspressoAPIRequestHandler {
 			throws IOException, EspressoAPIException, JSONException {
 		Request request = createGetRequest(vendorKey,apiKey, url,accessToken);
 		Response response = client.newCall(request).execute();
-		String body = response.body().string();
-		return new EspressoAPIResponseHandler().handle(response, body);
+		try {
+	        String body = response.body().string();
+	        return new EspressoAPIResponseHandler().handle(response, body);
+	    } finally {
+	        response.close(); 
+	    }
 	}
 	
 	
